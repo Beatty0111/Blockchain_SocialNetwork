@@ -1,8 +1,8 @@
 
 function web3_load(){
 	
-	var web3 = new Web3("https://rinkeby.infura.io/v3/21f8b7326a844fa38e7a56776aeb2151");
-	var abi = eval([
+	var web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/21f8b7326a844fa38e7a56776aeb2151"));
+	var abi = [
 	{
 		"constant": false,
 		"inputs": [
@@ -103,11 +103,12 @@ function web3_load(){
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	}
-]);
+];
 	var address = "0x3Abe5a1ED365496D09D302a807854D06B4A3EFb9";
-	var contract = web3.eth.Contract(abi, address);
+	var contract = web3.eth.contract(abi);
+	var contractInst = contract.at(address);
 	var ans = "";
-	contract.method._name().call(null, function(error, result){
+	contractInst._name(function(error, result){
 		ans = result;
 		document.getElementById("answer").innerHTML = ans;
 	});
