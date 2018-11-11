@@ -1,19 +1,9 @@
 pragma solidity ^0.4.0;
 
-// Test MasterNode
+
 contract MasterNode {
     
     mapping(address => TweetAccount) userAccounts;
-    
-    /*
-    address random = 0x9ed3e9a938b2b29Cfc1e8fA98D1919dc730d0841;
-    
-    function test() public {
-        TweetAccount joe = new TweetAccount("joe");
-        userAccounts[random] = joe;
-        userAccounts[random].addFollow(joe);
-    }
-    */
     
     function addTweet(string value) public {
         if(userAccounts[msg.sender] == TweetAccount(0)) {
@@ -66,6 +56,10 @@ contract MasterNode {
         }
         return "";
     }
+    
+    function setAcctName(string name) public{
+        userAccounts[msg.sender].setName(name);
+    }
 }
 
 //----------------------------------------------------------------------------------------------------------------------------------
@@ -77,6 +71,10 @@ contract TweetAccount {
     Tweet public _lastTweet;
     
     constructor(string name) public{
+        _name = name;
+    }
+    
+    function setName(string name) public{
         _name = name;
     }
     
